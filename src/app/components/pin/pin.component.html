@@ -1,0 +1,21 @@
+<nav class="nav navbar bg-dark">
+  <span class="navbar-brand">PIN</span>
+  <div class="float-right">
+    <button class="btn btn-success" *ngIf="!showPinPad" (click)="showPinPad = true;">
+      กรอก PIN
+    </button>
+    <button class="btn btn-info" *ngIf="showPinPad" (click)="pinService.clear();">
+      ล้าง
+    </button>
+    <button class="btn btn-primary" *ngIf="showPinPad" (click)="showPinPad = false; save();">
+      ตกลง
+    </button>
+  </div>
+</nav>
+<div *ngIf="showPinPad">
+  <app-pin-pad></app-pin-pad>
+  <div class="input-group">
+    <label class="input-group-text" for="urlInput">URL:</label>
+    <input id="urlInput" [(ngModel)]="websocketUrl" class="form-control">
+  </div>
+</div>

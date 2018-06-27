@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6 text-left">
+      <span *ngIf="websocketService.active" class="badge badge-success">เชื่อมต่อแล้ว</span>
+      <span *ngIf="!websocketService.active" class="badge badge-danger">ไม่ได้เชื่อมต่อ</span>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="text-right" *ngIf="statusService.messages.length > 0">
+    <a href="javascript:void(0);" (click)="statusService.clear()">
+      <i class="fa fa-times"></i>
+      ลบข้อความทั้งหมด
+    </a>
+  </div>
+  <div *ngFor="let message of statusService.messages">
+    {{message}}
+  </div>
+</div>

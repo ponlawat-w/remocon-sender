@@ -1,0 +1,9 @@
+.input-group, .input-group * {
+    border-radius: 0;
+    border: 0;
+}
+
+.input-group input {
+    background-color: #666666;
+    color: #ffffff;
+}

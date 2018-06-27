@@ -1,0 +1,23 @@
+<div class="pin-pad">
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th colspan="3">
+          <input type="password" class="form-control form-control-lg d-inline" [(ngModel)]="pinService.Pin">
+          <div class="float-right" *ngIf="pinService.Pin != ''">
+            <button class="btn btn-lg btn-info clear-btn" (click)="pinService.backspace();">
+              <i class="fa fa-arrow-left"></i>
+            </button>
+          </div>
+        </th>
+      </tr>
+      <tr *ngFor="let row of pinPad">
+        <td *ngFor="let number of row">
+          <button class="btn btn-dark btn-block" *ngIf="number != null" (click)="pinService.append(number);">
+            {{number}}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

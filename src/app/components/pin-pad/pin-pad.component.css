@@ -1,0 +1,22 @@
+input {
+    background-color: #444444;
+    border: 0;
+    border-radius: 0;
+    color: #ffffff;
+    margin: 1px 0;
+    width: auto;
+}
+
+.clear-btn {
+    border-radius: 0;
+}
+
+table td, table th {
+    margin: 0;
+    padding: 0;
+}
+
+td .btn {
+    border-radius: 0;
+    padding: 15px 0;
+}
