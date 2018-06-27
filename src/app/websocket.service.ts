@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable, Observer} from 'rxjs';
+import { Subject, Observable, Observer } from 'rxjs';
 import { StatusService } from './status.service';
 import { PinService } from './pin.service';
 
@@ -10,9 +10,11 @@ export class WebsocketService {
   private subject: Subject<MessageEvent>;
   private ws: WebSocket;
   public active: boolean;
+  public receiver: boolean;
 
   constructor(private statusService: StatusService, private pinService: PinService) {
     this.active = false;
+    this.receiver = false;
     this.start();
   }
 
@@ -39,20 +41,41 @@ export class WebsocketService {
     this.subject.subscribe(e => {
       if (e.type === 'open') {
         this.statusService.addMessage('เชื่อมต่อแล้ว');
-        this.active = this.isOpend();
+        this.active = this.isOpen();
       } else if (e.type === 'close') {
         this.statusService.addMessage('ปิดการเชื่อมต่อแล้ว');
-        this.active = this.isOpend();
+        this.active = this.isOpen();
       } else if (e.type === 'error') {
-        this.statusService.addMessage(`ผิดพลาด: ${e.data}`);
-        this.active = this.isOpend();
+        if (!e.data) {
+          this.statusService.addMessage('เกิดข้อผิดพลาด');
+        } else {
+          this.statusService.addMessage(`ผิดพลาด: ${e.data}`);
+        }
+        this.active = this.isOpen();
       } else if (e.type === 'message') {
-        this.statusService.addMessage(`การตอบกลับ: ${e.data}`);
+        this.onMessage(e.data);
       }
     });
   }
 
-  public isOpend(): boolean {
+  private onMessage(message: string): void {
+    if (message.startsWith('RECEIVERS=')) {
+      const amount = parseInt(message.substr(10), 10);
+      this.receiver = !isNaN(amount) && amount > 0;
+
+      return;
+    }
+
+    if (message === 'UNVALID') {
+      this.statusService.addMessage('เกิดข้อผิดพลาดในการส่ง');
+    } else if (message === 'UNAUTHORIZED') {
+      this.statusService.addMessage('PIN ไม่ถูกต้อง');
+    } else {
+      this.statusService.addMessage(`การตอบกลับ: ${message}`);
+    }
+  }
+
+  private isOpen(): boolean {
     return this.ws.readyState === WebSocket.OPEN;
   }
 
@@ -65,7 +88,7 @@ export class WebsocketService {
     }
   }
 
-  public connect(url: string): Subject<MessageEvent> {
+  private connect(url: string): Subject<MessageEvent> {
     if (!this.active) {
       if (!url.startsWith('ws')) {
         return null;

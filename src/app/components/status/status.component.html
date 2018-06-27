@@ -1,8 +1,18 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-6 text-left">
-      <span *ngIf="websocketService.active" class="badge badge-success">เชื่อมต่อแล้ว</span>
-      <span *ngIf="!websocketService.active" class="badge badge-danger">ไม่ได้เชื่อมต่อ</span>
+      <span *ngIf="websocketService.active && websocketService.receiver" class="badge badge-success">
+        <i class="fa fa-check"></i>
+        เชื่อมต่อแล้ว
+      </span>
+      <span *ngIf="websocketService.active && !websocketService.receiver" class="badge badge-light">
+        <i class="fa fa-exclamation-circle"></i>
+        คอมพิวเตอร์ไม่เชื่อมต่อ
+      </span>
+      <span *ngIf="!websocketService.active" class="badge badge-danger">
+        <i class="fa fa-times"></i>
+        ไม่ได้เชื่อมต่อ
+      </span>
     </div>
   </div>
 </div>

@@ -1,10 +1,10 @@
 <nav class="nav navbar bg-dark">
-  <span class="navbar-brand">PIN</span>
+  <span class="navbar-brand">remocon</span>
   <div class="float-right">
     <button class="btn btn-success" *ngIf="!showPinPad" (click)="showPinPad = true;">
-      กรอก PIN
+      <i class="fa fa-wrench"></i>
     </button>
-    <button class="btn btn-info" *ngIf="showPinPad" (click)="pinService.clear();">
+    <button class="btn btn-info" *ngIf="showPinPad && pinService.Pin != ''" (click)="pinService.clear();">
       ล้าง
     </button>
     <button class="btn btn-primary" *ngIf="showPinPad" (click)="showPinPad = false; save();">
