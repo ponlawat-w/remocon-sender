@@ -11,7 +11,7 @@ export class PinComponent implements OnInit {
   public showPinPad = false;
   public websocketUrl: string;
 
-  constructor(private pinService: PinService, private websocketService: WebsocketService) { }
+  constructor(public pinService: PinService, private websocketService: WebsocketService) { }
 
   ngOnInit() {
     const url = localStorage.getItem('url');

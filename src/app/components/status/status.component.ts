@@ -9,7 +9,7 @@ import { WebsocketService } from '../../websocket.service';
 })
 export class StatusComponent implements OnInit {
 
-  constructor(private statusService: StatusService, private websocketService: WebsocketService) { }
+  constructor(public statusService: StatusService, public websocketService: WebsocketService) { }
 
   ngOnInit() {
   }

@@ -14,7 +14,7 @@ export class PinPadComponent implements OnInit {
     [null, 0, null]
   ];
 
-  constructor(private pinService: PinService) { }
+  constructor(public pinService: PinService) { }
 
   ngOnInit() {
   }
